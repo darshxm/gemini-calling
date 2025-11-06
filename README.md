@@ -10,10 +10,15 @@ Highlights:
 
 ## Installation
 
-Copy this folder into your project or install locally:
+- Pip via HTTPS:
+  - `pip install "git+https://github.com/darshxm/gemini-calling.git@main"`
+- Pin to a tag/commit:
+  - `pip install "git+https://github.com/darshxm/gemini-calling.git@v0.1.0"`
+  - `pip install "git+https://github.com/darshxm/gemini-calling.git@<commit-sha>"`
 
-- Editable install: `pip install -e .` from this directory
-- Or just import from the folder path in your project
+Notes:
+
+- Import name is `gemini_calling` (underscore): `from gemini_calling import gemini_request`.
 
 ## Quick start
 
@@ -32,7 +37,7 @@ print(res.text)
 
 - What it is: a tiny helper that asks Gemini questions and returns answers.
 - Your keys: put one or many in `.env` or pass them to `GeminiClient(api_keys=[...])`. The second option is not recommended, but handy for quick tests. Please never commit your API keys.
-- Tiers: set `limits_tier="free"` or `"tier1"` (or `GEMINI_LIMITS_TIER`) so requests stay under Google’s limits. Support to be added for tier 2 and 3, but I can't imagine anyone who has that plan and wants to use this repo.
+- Tiers: set `limits_tier="free"` or `"tier1"` (or `GEMINI_LIMITS_TIER`) so requests stay under Google’s limits. Support to be added for tier 2 and 3.
 - Two modes per call (pick one):
   - Structured output (JSON/enums) via `response_mime_type` + `response_schema`/`response_enum`.
   - Function calling via `tools`, `function_calling_mode`, etc. Do not mix with structured output.
@@ -40,7 +45,7 @@ print(res.text)
 - Safety: automatic retries/backoff, key rotation, key disable on auth errors, and per-key + global rate limiting (RPM/RPD/TPM).
 - Extras: system instructions, temperature/topP/topK/stop, thinking budget, or full `contents` control.
 
-Quick taste:
+Quickstart:
 
 ```
 from gemini_calling import gemini_request
@@ -48,6 +53,10 @@ from gemini_calling import gemini_request
 res = gemini_request(prompt="How does AI work?", model="gemini-2.5-flash")
 print(res.text)
 ```
+
+Compatibility:
+- Python >= 3.8
+- No external dependencies (uses `urllib`)
 
 ## API Keys
 
